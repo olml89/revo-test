@@ -11,6 +11,8 @@ use PHPUnit\Framework\TestCase;
 use RevoTest\Movies\Customer;
 use RevoTest\Movies\Movie\Movie;
 use RevoTest\Movies\Rental;
+use RevoTest\Movies\Statement\ConsoleStatementGenerator;
+use RevoTest\Movies\Statement\StatementGenerator;
 
 #[CoversClass(Customer::class)]
 final class CustomerTest extends TestCase
@@ -24,45 +26,45 @@ final class CustomerTest extends TestCase
 
         return [
             [
-                $customer = (new Customer($faker->name()))
-                    ->addRental(
-                        new Rental(($movie = $regularMovieCreator->create()), daysRented: 2)
-                    ),
+                $customer = (new Customer($faker->name()))->addRental(
+                    new Rental(($movie = $regularMovieCreator->create()), daysRented: 2)
+                ),
+                new ConsoleStatementGenerator(),
                 self::generateExpectedStatement($customer, $movie, expectedMovieAmount: 2, expectedTotalAmount: 2, frequentRenterPoints: 1),
             ],
             [
-                $customer = (new Customer($faker->name()))
-                    ->addRental(
-                        new Rental(($movie = $regularMovieCreator->create()), daysRented: 3)
-                    ),
+                $customer = (new Customer($faker->name()))->addRental(
+                    new Rental(($movie = $regularMovieCreator->create()), daysRented: 3)
+                ),
+                new ConsoleStatementGenerator(),
                 self::generateExpectedStatement($customer, $movie, expectedMovieAmount: 3.5, expectedTotalAmount: 3.5, frequentRenterPoints: 1),
             ],
             [
-                $customer = (new Customer($faker->name()))
-                    ->addRental(
-                        new Rental(($movie = $newReleaseMovieCreator->create()), daysRented: 1)
-                    ),
+                $customer = (new Customer($faker->name()))->addRental(
+                    new Rental(($movie = $newReleaseMovieCreator->create()), daysRented: 1)
+                ),
+                new ConsoleStatementGenerator(),
                 self::generateExpectedStatement($customer, $movie, expectedMovieAmount: 3, expectedTotalAmount: 3, frequentRenterPoints: 1),
             ],
             [
-                $customer = (new Customer($faker->name()))
-                    ->addRental(
-                        new Rental(($movie = $newReleaseMovieCreator->create()), daysRented: 2)
-                    ),
+                $customer = (new Customer($faker->name()))->addRental(
+                    new Rental(($movie = $newReleaseMovieCreator->create()), daysRented: 2)
+                ),
+                new ConsoleStatementGenerator(),
                 self::generateExpectedStatement($customer, $movie, expectedMovieAmount: 6, expectedTotalAmount: 6, frequentRenterPoints: 2),
             ],
             [
-                $customer = (new Customer($faker->name()))
-                    ->addRental(
-                        new Rental(($movie = $childrenMovieCreator->create()), daysRented: 3)
-                    ),
+                $customer = (new Customer($faker->name()))->addRental(
+                    new Rental(($movie = $childrenMovieCreator->create()), daysRented: 3)
+                ),
+                new ConsoleStatementGenerator(),
                 self::generateExpectedStatement($customer, $movie, expectedMovieAmount: 1.5, expectedTotalAmount: 1.5, frequentRenterPoints: 1),
             ],
             [
-                $customer = (new Customer($faker->name()))
-                    ->addRental(
-                        new Rental(($movie = $childrenMovieCreator->create()), daysRented: 4)
-                    ),
+                $customer = (new Customer($faker->name()))->addRental(
+                    new Rental(($movie = $childrenMovieCreator->create()), daysRented: 4)
+                ),
+                new ConsoleStatementGenerator(),
                 self::generateExpectedStatement($customer, $movie, expectedMovieAmount: 3, expectedTotalAmount: 3, frequentRenterPoints: 1),
             ],
         ];
@@ -92,8 +94,8 @@ final class CustomerTest extends TestCase
     }
 
     #[DataProvider('provideCustomerAndExpectedStatement')]
-    public function testItReturnsCorrectStatement(Customer $customer, string $expectedStatement): void
+    public function testItReturnsCorrectStatement(Customer $customer, StatementGenerator $statementGenerator, string $expectedStatement): void
     {
-        $this->assertEquals($expectedStatement, $customer->statement());
+        $this->assertEquals($expectedStatement, $customer->statement($statementGenerator));
     }
 }
