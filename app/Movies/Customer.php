@@ -47,7 +47,7 @@ final class Customer
                     }
                     break;
                 case Movie::NEW_RELEASE:
-                    $rentalAmount += $rental->getDaysRented() * 2;
+                    $rentalAmount += $rental->getDaysRented() * 3;
                     break;
                 case Movie::CHILDRENS:
                     $rentalAmount += 1.5;
