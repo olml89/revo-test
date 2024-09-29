@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace RevoTest\Movies;
 
+use RevoTest\Movies\Movie\Movie;
+
 final readonly class Rental
 {
     public function __construct(

@@ -37,32 +37,10 @@ final class Customer
         $result = sprintf('Rental Record for %s%s', $this->name, PHP_EOL);
 
         foreach ($this->rentals as $rental) {
-            $rentalAmount = 0;
-
-            switch ($rental->getMovie()->getPriceCode()) {
-                case Movie::REGULAR:
-                    $rentalAmount += 2;
-                    if ($rental->getDaysRented() > 2) {
-                        $rentalAmount += ($rental->getDaysRented() - 2) * 1.5;
-                    }
-                    break;
-                case Movie::NEW_RELEASE:
-                    $rentalAmount += $rental->getDaysRented() * 3;
-                    break;
-                case Movie::CHILDRENS:
-                    $rentalAmount += 1.5;
-                    if ($rental->getDaysRented() > 3) {
-                        $rentalAmount += ($rental->getDaysRented() - 3) * 1.5;
-                    }
-                    break;
-            }
+            $rentalAmount = $rental->getMovie()->getAmount($rental->getDaysRented());
 
             // Add frequent render points
-            ++$frequentRenterPoints;
-
-            if ($rental->getMovie()->getPriceCode() === Movie::NEW_RELEASE && $rental->getDaysRented() > 1) {
-                ++$frequentRenterPoints;
-            }
+            $frequentRenterPoints += 1 + $rental->getMovie()->getFrequentRenderPoints($rental->getDaysRented());
 
             // Show figures for each rental
             $result .= "\t" . $rental->getMovie()->getTitle() . "\t" . $rentalAmount . PHP_EOL;

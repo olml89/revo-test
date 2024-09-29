@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Movies;
 
-use RevoTest\Movies\Movie;
+use RevoTest\Movies\Movie\ChildrenMovie;
 
 final readonly class ChildrenMovieCreator extends MovieCreator
 {
-    public function create(): Movie
+    public function create(): ChildrenMovie
     {
-        return new Movie($this->faker->name(), Movie::CHILDRENS);
+        return new ChildrenMovie($this->faker->name());
     }
 }

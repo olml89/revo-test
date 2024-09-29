@@ -9,7 +9,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use RevoTest\Movies\Customer;
-use RevoTest\Movies\Movie;
+use RevoTest\Movies\Movie\Movie;
 use RevoTest\Movies\Rental;
 
 #[CoversClass(Customer::class)]
