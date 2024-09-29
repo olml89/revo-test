@@ -14,7 +14,7 @@ final readonly class NewReleaseMovie extends AbstractMovie implements Movie
     public function getFrequentRenderPoints(int $daysRented): int
     {
         return $daysRented > 1
-            ? 1
-            : 0;
+            ? 2
+            : 1;
     }
 }

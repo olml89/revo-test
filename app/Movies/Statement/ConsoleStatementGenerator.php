@@ -18,7 +18,7 @@ final class ConsoleStatementGenerator implements StatementGenerator
             $rentalAmount = $rental->getMovie()->getAmount($rental->getDaysRented());
 
             // Add frequent render points
-            $frequentRenterPoints += 1 + $rental->getMovie()->getFrequentRenderPoints($rental->getDaysRented());
+            $frequentRenterPoints += $rental->getMovie()->getFrequentRenderPoints($rental->getDaysRented());
 
             // Show figures for each rental
             $result .= "\t" . $rental->getMovie()->getTitle() . "\t" . $rentalAmount . PHP_EOL;
