@@ -17,6 +17,6 @@ final readonly class ChildrenMovie extends AbstractMovie implements Movie
 
     public function getFrequentRenderPoints(int $daysRented): int
     {
-        return 0;
+        return 1;
     }
 }
