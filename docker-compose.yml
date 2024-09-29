@@ -1,0 +1,15 @@
+services:
+  php:
+    container_name: php
+    build:
+      dockerfile: Dockerfile
+      args:
+        PHP_VERSION: ${PHP_VERSION}
+        XDEBUG_PORT: ${XDEBUG_PORT}
+    environment:
+      PHP_IDE_CONFIG: "serverName=${PHP_SERVER_NAME}"
+    tty: true
+    volumes:
+      - ./:/var/www/html
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
