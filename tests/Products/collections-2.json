@@ -1,0 +1,46 @@
+{
+  "products": [
+    {
+      "title": "Small Rubber Wallet",
+      "product_type": "Wallet",
+      "variants": [
+        {
+          "title": "Blue",
+          "price": 29.33
+        },
+        {
+          "title": "Turquoise",
+          "price": 18.50
+        }
+      ]
+    },
+    {
+      "title": "Sleek Cotton Shoes",
+      "product_type": "Shoes",
+      "variants": [
+        {
+          "title": "Sky Blue",
+          "price": 20.00
+        }
+      ]
+    },
+    {
+      "title": "IKEA Lamps",
+      "product_type": "Lamp",
+      "variants": [
+        {
+          "title": "Blasverk",
+          "price": 9.99
+        },
+        {
+          "title": "Tarnaby",
+          "price": 15
+        },
+        {
+          "title": "Fado",
+          "price": 19.99
+        }
+      ]
+    }
+  ]
+}
