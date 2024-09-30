@@ -9,6 +9,7 @@ use Faker\Generator;
 use InvalidArgumentException;
 use JsonException;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use RevoTest\Products\Feeds\JsonFeed;
 use RevoTest\Products\Product;
@@ -34,150 +35,126 @@ final class JsonFeedTest extends TestCase
         JsonFeed::fromJson($invalidJson);
     }
 
-    public function testItThrowsInvalidArgumentExceptionIfAProductFeedMissesProducts(): void
+    public static function provideInvalidRawFeedDataAndExpectedException(): array
     {
-        $data = [
-            [],
-        ];
+        $faker = Factory::create();
 
-        $this->expectExceptionObject(
-            new InvalidArgumentException(sprintf(
-                'Invalid %s, %s key needed',
-                JsonFeed::class,
-                'products',
-            )),
-        );
-
-        JsonFeed::fromJson(json_encode($data));
-    }
-
-    public function testItThrowsInvalidArgumentExceptionIfAProductMissesTheTitle(): void
-    {
-        $data = [
-            'products' => [
-                [],
-            ],
-        ];
-
-        $this->expectExceptionObject(
-            new InvalidArgumentException(sprintf(
-                'Invalid %s, %s key needed',
-                Product::class,
-                'title',
-            )),
-        );
-
-        JsonFeed::fromJson(json_encode($data));
-    }
-
-    public function testItThrowsInvalidArgumentExceptionIfAProductMissesTheProductType(): void
-    {
-        $data = [
-            'products' => [
+        return [
+            'raw feed data misses products' => [
                 [
-                    'title' => $this->faker->word(),
+                    [],
                 ],
+                new InvalidArgumentException(sprintf(
+                    'Invalid %s, %s key needed',
+                    JsonFeed::class,
+                    'products',
+                )),
             ],
-        ];
-
-        $this->expectExceptionObject(
-            new InvalidArgumentException(sprintf(
-                'Invalid %s, %s key needed',
-                Product::class,
-                'product_type',
-            )),
-        );
-
-        JsonFeed::fromJson(json_encode($data));
-    }
-
-    public function testItThrowsInvalidArgumentExceptionIfAProductMissesTheVariant(): void
-    {
-        $data = [
-            'products' => [
+            'product misses title' => [
                 [
-                    'title' => $this->faker->word(),
-                    'product_type' => $this->faker->randomElement(
-                        array_map(
-                            fn(Type $type): string => $type->value,
-                            Type::cases(),
-                        )
-                    ),
-                ],
-            ],
-        ];
-
-        $this->expectExceptionObject(
-            new InvalidArgumentException(sprintf(
-                'Invalid %s, %s key needed',
-                Product::class,
-                'variants',
-            )),
-        );
-
-        JsonFeed::fromJson(json_encode($data));
-    }
-
-    public function testItThrowsInvalidArgumentExceptionIfAProductVariantMissesTheTitle(): void
-    {
-        $data = [
-            'products' => [
-                [
-                    'title' => $this->faker->word(),
-                    'product_type' => $this->faker->randomElement(
-                        array_map(
-                            fn(Type $type): string => $type->value,
-                            Type::cases(),
-                        )
-                    ),
-                    'variants' => [
+                    'products' => [
                         [],
                     ],
                 ],
+                new InvalidArgumentException(sprintf(
+                    'Invalid %s, %s key needed',
+                    Product::class,
+                    'title',
+                )),
             ],
-        ];
-
-        $this->expectExceptionObject(
-            new InvalidArgumentException(sprintf(
-                'Invalid %s, %s key needed',
-                Variant::class,
-                'title',
-            )),
-        );
-
-        JsonFeed::fromJson(json_encode($data));
-    }
-
-    public function testItThrowsInvalidArgumentExceptionIfAProductVariantMissesThePrice(): void
-    {
-        $data = [
-            'products' => [
+            'product misses product type' => [
                 [
-                    'title' => $this->faker->word(),
-                    'product_type' => $this->faker->randomElement(
-                        array_map(
-                            fn(Type $type): string => $type->value,
-                            Type::cases(),
-                        )
-                    ),
-                    'variants' => [
+                    'products' => [
                         [
-                            'title' => $this->faker->word(),
+                            'title' => $faker->word(),
                         ],
                     ],
                 ],
+                new InvalidArgumentException(sprintf(
+                    'Invalid %s, %s key needed',
+                    Product::class,
+                    'product_type',
+                )),
+            ],
+            'product misses variants' => [
+                [
+                    'products' => [
+                        [
+                            'title' => $faker->word(),
+                            'product_type' => $faker->randomElement(
+                                array_map(
+                                    fn(Type $type): string => $type->value,
+                                    Type::cases(),
+                                )
+                            ),
+                        ],
+                    ],
+                ],
+                new InvalidArgumentException(sprintf(
+                    'Invalid %s, %s key needed',
+                    Product::class,
+                    'variants',
+                )),
+            ],
+            'product variant misses the title' => [
+                [
+                    'products' => [
+                        [
+                            'title' => $faker->word(),
+                            'product_type' => $faker->randomElement(
+                                array_map(
+                                    fn(Type $type): string => $type->value,
+                                    Type::cases(),
+                                )
+                            ),
+                            'variants' => [
+                                [],
+                            ],
+                        ],
+                    ],
+                ],
+                new InvalidArgumentException(sprintf(
+                    'Invalid %s, %s key needed',
+                    Variant::class,
+                    'title',
+                )),
+            ],
+            'product variant misses the price' => [
+                [
+                    'products' => [
+                        [
+                            'title' => $faker->word(),
+                            'product_type' => $faker->randomElement(
+                                array_map(
+                                    fn(Type $type): string => $type->value,
+                                    Type::cases(),
+                                )
+                            ),
+                            'variants' => [
+                                [
+                                    'title' => $faker->word(),
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                new InvalidArgumentException(sprintf(
+                    'Invalid %s, %s key needed',
+                    Variant::class,
+                    'price',
+                )),
             ],
         ];
+    }
 
-        $this->expectExceptionObject(
-            new InvalidArgumentException(sprintf(
-                'Invalid %s, %s key needed',
-                Variant::class,
-                'price',
-            )),
-        );
+    #[DataProvider('provideInvalidRawFeedDataAndExpectedException')]
+    public function testItThrowsInvalidArgumentExceptionIfTheRawFeedDataIsNotValid(
+        array $rawFeedData,
+        InvalidArgumentException $expectedException,
+    ): void {
+        $this->expectExceptionObject($expectedException);
 
-        JsonFeed::fromJson(json_encode($data));
+        JsonFeed::fromJson(json_encode($rawFeedData));
     }
 
     public function testItProperlyDecodesAJsonEncodedString(): void
