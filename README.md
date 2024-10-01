@@ -1,3 +1,11 @@
+<p align="center"><a href="https://revo.works/ca" target="_blank"><img src="https://community.revo.works/web/image/68993-18d0811f/Revo_logo_naranja.png" width="400" alt="Revo"></a></p>
+
+<p align="center">
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
+<a href="https://github.com/olml89/revo-test"><img src="https://github.com/olml89/revo-test/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
+<a href="https://codecov.io/gh/olml89/revo-test"><img src="https://codecov.io/gh/olml89/revo-test/branch/main/graph/badge.svg?token=SL6ANXRH0A" alt="Coverage status"></a>
+</p>
+
 # Description
 
 This is an implementation of a technical test for a senior developer role at
