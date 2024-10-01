@@ -31,6 +31,12 @@ final class NumberInputReaderTest extends TestCase
                     return $float;
                 })(),
             ],
+            'negative number' => [
+                $faker->numberBetween(-1000, -1),
+            ],
+            'zero' => [
+                0,
+            ],
         ];
     }
 
@@ -40,17 +46,17 @@ final class NumberInputReaderTest extends TestCase
         $readlineArgument = (string)$invalidInput;
 
         $this->expectExceptionObject(
-            new InvalidArgumentException('Input must be an integer.')
+            new InvalidArgumentException('Input must be a natural number.')
         );
 
         NumberInputReader::fromConsole($readlineArgument);
     }
 
-    public function testItAllowsIntegersAsInput(): void
+    public function testItAllowsNaturalNumbersAsInput(): void
     {
-        $int = Factory::create()->numberBetween();
-        $readlineArgument = (string)$int;
+        $naturalNumber = Factory::create()->numberBetween();
+        $readlineArgument = (string)$naturalNumber;
 
-        $this->assertEquals($int, NumberInputReader::fromConsole($readlineArgument)->number);
+        $this->assertEquals($naturalNumber, NumberInputReader::fromConsole($readlineArgument)->number);
     }
 }
