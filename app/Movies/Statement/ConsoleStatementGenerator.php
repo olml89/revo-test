@@ -15,13 +15,13 @@ final class ConsoleStatementGenerator implements StatementGenerator
         $result = sprintf('Rental Record for %s%s', $customerName, PHP_EOL);
 
         foreach ($customerRentals as $rental) {
-            $rentalAmount = $rental->getMovie()->getAmount($rental->getDaysRented());
+            $rentalAmount = $rental->movie->getAmount($rental->daysRented);
 
             // Add frequent render points
-            $frequentRenterPoints += $rental->getMovie()->getFrequentRenderPoints($rental->getDaysRented());
+            $frequentRenterPoints += $rental->movie->getFrequentRenderPoints($rental->daysRented);
 
             // Show figures for each rental
-            $result .= "\t" . $rental->getMovie()->getTitle() . "\t" . $rentalAmount . PHP_EOL;
+            $result .= "\t" . $rental->movie->getTitle() . "\t" . $rentalAmount . PHP_EOL;
             $totalAmount += $rentalAmount;
         }
 
