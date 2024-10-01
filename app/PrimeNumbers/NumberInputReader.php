@@ -15,7 +15,13 @@ final readonly class NumberInputReader
     public static function fromConsole(false|string $input): self
     {
         if (filter_var($input, FILTER_VALIDATE_INT) === false) {
-            throw new InvalidArgumentException('Input must be an integer.');
+            throw new InvalidArgumentException('Input must be a natural number.');
+        }
+
+        $number = (int)$input;
+
+        if ($number <= 0) {
+            throw new InvalidArgumentException('Input must be a natural number.');
         }
 
         return new self((int)$input);
