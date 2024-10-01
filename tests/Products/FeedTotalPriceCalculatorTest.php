@@ -5,13 +5,21 @@ declare(strict_types=1);
 namespace Tests\Products;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use RevoTest\Products\Feeds\JsonFeed;
 use RevoTest\Products\FeedTotalPriceCalculator;
+use RevoTest\Products\Product;
 use RevoTest\Products\Type;
+use RevoTest\Products\ValidatesKeys;
+use RevoTest\Products\Variant;
 
 #[CoversClass(FeedTotalPriceCalculator::class)]
+#[CoversClass(JsonFeed::class)]
+#[CoversClass(Product::class)]
+#[CoversClass(Variant::class)]
+#[CoversTrait(ValidatesKeys::class)]
 final class FeedTotalPriceCalculatorTest extends TestCase
 {
     public static function provideExpectedPriceAndAllowedTypes(): array

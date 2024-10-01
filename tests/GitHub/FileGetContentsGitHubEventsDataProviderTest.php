@@ -12,6 +12,7 @@ use RevoTest\GitHub\DataProviders\FileGetContentsGitHubEventsDataProvider;
 use RevoTest\GitHub\DataProviders\UnreachableGitHubEventsException;
 
 #[CoversClass(FileGetContentsGitHubEventsDataProvider::class)]
+#[CoversClass(UnreachableGitHubEventsException::class)]
 final class FileGetContentsGitHubEventsDataProviderTest extends TestCase
 {
     private Generator $faker;

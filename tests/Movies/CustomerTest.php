@@ -7,14 +7,25 @@ namespace Tests\Movies;
 use Faker\Factory;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use RevoTest\Movies\Customer;
+use RevoTest\Movies\Movie\AbstractMovie;
+use RevoTest\Movies\Movie\ChildrenMovie;
 use RevoTest\Movies\Movie\Movie;
+use RevoTest\Movies\Movie\NewReleaseMovie;
+use RevoTest\Movies\Movie\RegularMovie;
 use RevoTest\Movies\Rental;
 use RevoTest\Movies\Statement\ConsoleStatementGenerator;
 use RevoTest\Movies\Statement\StatementGenerator;
 
 #[CoversClass(Customer::class)]
+#[CoversClass(AbstractMovie::class)]
+#[CoversClass(RegularMovie::class)]
+#[CoversClass(NewReleaseMovie::class)]
+#[CoversClass(ChildrenMovie::class)]
+#[CoversClass(Rental::class)]
+#[CoversClass(ConsoleStatementGenerator::class)]
 final class CustomerTest extends TestCase
 {
     public static function provideCustomerAndExpectedStatement(): array

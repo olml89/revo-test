@@ -9,10 +9,13 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use RevoTest\GitHub\DataProviders\GitHubEventsDataProvider;
+use RevoTest\GitHub\GitHubEventScore;
 use RevoTest\GitHub\GitHubScoreCalculator;
 use RevoTest\GitHub\ScoredGitHubEventType;
 
 #[CoversClass(GitHubScoreCalculator::class)]
+#[CoversClass(GitHubEventScore::class)]
+#[CoversClass(ScoredGitHubEventType::class)]
 final class GitHubScoreCalculatorTest extends TestCase
 {
     public static function provideGithubEventsDataProviderAndExpectedScore(): array

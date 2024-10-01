@@ -17,6 +17,8 @@ use RevoTest\Products\Type;
 use RevoTest\Products\Variant;
 
 #[CoversClass(JsonFeed::class)]
+#[CoversClass(Product::class)]
+#[CoversClass(Variant::class)]
 final class JsonFeedTest extends TestCase
 {
     private readonly Generator $faker;
