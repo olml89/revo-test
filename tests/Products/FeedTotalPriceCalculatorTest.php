@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Products;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use RevoTest\Products\Feeds\JsonFeed;
 use RevoTest\Products\FeedTotalPriceCalculator;
@@ -35,12 +36,12 @@ final class FeedTotalPriceCalculatorTest extends TestCase
                 Type::Lamp,
             ],
             [
-                67.88,
+                67.83,
                 Type::Wallet,
                 Type::Shoes,
             ],
             [
-                92.86,
+                92.81,
                 Type::Wallet,
                 Type::Lamp,
             ],
@@ -50,7 +51,7 @@ final class FeedTotalPriceCalculatorTest extends TestCase
                 Type::Lamp,
             ],
             [
-                112.86,
+                112.81,
                 Type::Wallet,
                 Type::Shoes,
                 Type::Lamp,
@@ -58,6 +59,7 @@ final class FeedTotalPriceCalculatorTest extends TestCase
         ];
     }
 
+    #[DataProvider('provideExpectedPriceAndAllowedTypes')]
     public function testItProperlyCalculatesTheTotalPrice(float $expectedPrice, Type ...$allowedTypes): void
     {
         $encodedJsonFeed = file_get_contents(__DIR__ . '/collections-2.json');

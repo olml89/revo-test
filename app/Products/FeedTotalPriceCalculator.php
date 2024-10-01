@@ -10,10 +10,13 @@ final class FeedTotalPriceCalculator
 {
     public function calculate(Feed $feed, Type ...$allowedTypes): float
     {
-        return array_reduce(
+        $totalPrice = array_reduce(
             array: $feed->toArray(),
             callback: fn(float $carry, Product $product): float => $carry + $product->getTotalPrice(...$allowedTypes),
             initial: 0.0
         );
+
+        // Return the total price rounded up to 2 decimals
+        return round($totalPrice, precision: 2);
     }
 }
