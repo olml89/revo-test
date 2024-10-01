@@ -15,6 +15,12 @@ following
 
 # Installation
 
+Create a **.env** file from the **.env.example** skeleton
+
+````php
+cp .env.example .env
+````
+
 Build and spin up the docker containers
 
 ````php
@@ -63,24 +69,26 @@ use RevoTest\Products\Type;
 
 $calculator = new FeedTotalPriceCalculator();
 
-$calculator->calculate($feed, Type::Wallet, Type::\RevoTest\Products\Lamp)
+$calculator->calculate($feed, Type::Wallet, Type::Lamp)
 
 $calculator->calculate($feed, ...[
     Type::Wallet,
-    Type::\RevoTest\Products\Lamp,
+    Type::Lamp,
 ]);
 ````
 
 The feed will raise an error if the json is not in the expected format given by the exercise example.
+
 To add support for products different than wallets, shoes or lamps, they would have to be added in the ```Type``` enum.
 
 ## Refactor
 
-This exercise has been solved using a ```Movie``` interface and then implementing through different implementations, 
+This exercise has been solved using a ```Movie``` interface and then implementing it through different implementations, 
 each of which is responsible of the calculation of its amount and frequent renter points using the specifications given
-on the exercise statement.
+in the exercise statement.
 
 To add support for the 3 new types of movies, a new ```Movie``` implementation would need to be added for each one.
+
 To add support for the 2 new types of outputs, a new ```StatementGenerator``` implementation would need to be added for each one.
 
 There's a ```foreach``` loop kept in this exercise as it was already present in the original exercise statement.
@@ -92,8 +100,8 @@ A working demonstration has been implemented and can be executed:
 ````php
 php ./bin/prime-numbers.php
 ````
-The prompt will ask for a valid integer number. When it is input, it will calculate all the prime numbers
-up to and including that input using the Eratosthenes sieve algorithm. It has been optimized to save up memory usage.
+The prompt will ask for a natural number. When it is input, it will calculate all the prime numbers
+up to and including that number using the Eratosthenes sieve algorithm. It has been optimized to save up memory usage.
 
 An error would be output if the input is not a valid positive integer.
 
