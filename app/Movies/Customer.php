@@ -14,15 +14,8 @@ final class Customer
     private array $rentals;
 
     public function __construct(
-        private readonly string $name,
-        Rental ...$rentals
+        public readonly string $name,
     ) {
-        $this->rentals = $rentals;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     public function addRental(Rental $rental): self

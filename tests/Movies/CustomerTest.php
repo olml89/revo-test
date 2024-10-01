@@ -79,7 +79,7 @@ final class CustomerTest extends TestCase
     ): string {
         return sprintf(
             'Rental Record for %s%s%s%s%s%s%sAmount owed is %s%sYou earned %s frequent renter points%s',
-            $customer->getName(),
+            $customer->name,
             PHP_EOL,
             "\t",
             $movie->getTitle(),
