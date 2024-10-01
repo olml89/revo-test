@@ -9,9 +9,9 @@ use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use RevoTest\PrimeNumbers\NumberInputReader;
+use RevoTest\PrimeNumbers\NaturalNumber;
 
-#[CoversClass(NumberInputReader::class)]
+#[CoversClass(NaturalNumber::class)]
 final class NumberInputReaderTest extends TestCase
 {
     public static function provideInvalidInputs(): array
@@ -49,7 +49,7 @@ final class NumberInputReaderTest extends TestCase
             new InvalidArgumentException('Input must be a natural number.')
         );
 
-        NumberInputReader::fromConsole($readlineArgument);
+        NaturalNumber::fromConsole($readlineArgument);
     }
 
     public function testItAllowsNaturalNumbersAsInput(): void
@@ -57,6 +57,6 @@ final class NumberInputReaderTest extends TestCase
         $naturalNumber = Factory::create()->numberBetween();
         $readlineArgument = (string)$naturalNumber;
 
-        $this->assertEquals($naturalNumber, NumberInputReader::fromConsole($readlineArgument)->number);
+        $this->assertEquals($naturalNumber, NaturalNumber::fromConsole($readlineArgument)->value);
     }
 }

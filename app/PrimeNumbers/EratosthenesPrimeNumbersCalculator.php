@@ -6,19 +6,19 @@ namespace RevoTest\PrimeNumbers;
 
 final class EratosthenesPrimeNumbersCalculator implements PrimeNumbersCalculator
 {
-    public function calculate(int $number): array
+    public function calculate(NaturalNumber $number): array
     {
-        $limit = (int)sqrt($number);
+        $limit = sqrt($number->value);
 
         $primeNumbersHash = [
             0 => false,
             1 => false,
-            ...array_fill(2, max($number - 1, 0), true),
+            ...array_fill(2, max($number->value - 1, 0), true),
         ];
 
         for ($i = 2; $i <= $limit; $i++) {
             if ($primeNumbersHash[$i]) {
-                for ($j = $i * $i; $j <= $number; $j += $i) {
+                for ($j = $i * $i; $j <= $number->value; $j += $i) {
                     $primeNumbersHash[$j] = false;
                 }
             }
