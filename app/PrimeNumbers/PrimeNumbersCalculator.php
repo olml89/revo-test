@@ -11,5 +11,5 @@ interface PrimeNumbersCalculator
      *
      * @return int[]
      */
-    public function calculate(int $number): array;
+    public function calculate(NaturalNumber $number): array;
 }
