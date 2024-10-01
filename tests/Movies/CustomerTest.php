@@ -7,7 +7,6 @@ namespace Tests\Movies;
 use Faker\Factory;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use RevoTest\Movies\Customer;
 use RevoTest\Movies\Movie\AbstractMovie;
