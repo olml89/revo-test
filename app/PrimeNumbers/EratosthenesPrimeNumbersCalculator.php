@@ -9,21 +9,18 @@ final class EratosthenesPrimeNumbersCalculator implements PrimeNumbersCalculator
     public function calculate(NaturalNumber $number): array
     {
         $limit = sqrt($number->value);
+        $start = 2;
 
-        $primeNumbersHash = [
-            0 => false,
-            1 => false,
-            ...array_fill(2, max($number->value - 1, 0), true),
-        ];
+        $primeNumbersHashTable = array_fill(start_index: $start, count: $number->value - 1, value: true);
 
-        for ($i = 2; $i <= $limit; $i++) {
-            if ($primeNumbersHash[$i]) {
+        for ($i = $start; $i <= $limit; $i++) {
+            if ($primeNumbersHashTable[$i]) {
                 for ($j = $i * $i; $j <= $number->value; $j += $i) {
-                    $primeNumbersHash[$j] = false;
+                    $primeNumbersHashTable[$j] = false;
                 }
             }
         }
 
-        return array_keys(array_filter($primeNumbersHash));
+        return array_keys(array_filter($primeNumbersHashTable));
     }
 }
