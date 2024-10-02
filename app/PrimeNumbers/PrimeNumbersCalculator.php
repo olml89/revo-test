@@ -7,7 +7,7 @@ namespace RevoTest\PrimeNumbers;
 interface PrimeNumbersCalculator
 {
     /**
-     * It returns all the prime numbers between 0 and a given input (including it).
+     * It returns all the prime numbers until a given natural number (including it).
      *
      * @return int[]
      */
